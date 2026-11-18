@@ -9,7 +9,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
     return (
         <div className="flex min-h-screen items-center justify-center px-4 py-10">
             <div className="w-full max-w-md">
-                <div className="mb-8 flex justify-center"><Logo /></div>
+                <div className="mb-8 flex justify-center"><Link to="/" aria-label="Volver al inicio"><Logo /></Link></div>
                 <div className="rounded-2xl border border-line bg-surface p-6 sm:p-8">
                     <h1 className="text-xl font-bold">{title}</h1>
                     <p className="mt-1 mb-6 text-sm text-muted">{subtitle}</p>

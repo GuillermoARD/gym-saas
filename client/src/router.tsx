@@ -1,11 +1,14 @@
-import { createBrowserRouter, Link } from 'react-router-dom'
+import { createBrowserRouter, Link, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 import RequireAuth from './components/RequireAuth'
 import AdminGyms from './pages/AdminGyms'
 import CheckIn from './pages/CheckIn'
 import ClientDetail from './pages/ClientDetail'
 import Clients from './pages/Clients'
+import { Loading } from './components/ui'
+import { useAuth } from './context/AuthContext'
 import Dashboard from './pages/Dashboard'
+import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Payments from './pages/Payments'
 import Plans from './pages/Plans'
@@ -22,11 +25,21 @@ function NotFound() {
     )
 }
 
+/** En "/" sin sesión se ve la página pública; con sesión, el panel del gimnasio */
+function PanelOrLanding() {
+    const { user, loading } = useAuth()
+    const { pathname } = useLocation()
+
+    if (loading) return <Loading />
+    if (!user && pathname === '/') return <Landing />
+    return <RequireAuth roles={['owner', 'reception', 'trainer']} />
+}
+
 export const router = createBrowserRouter([
     { path: '/login', element: <Login /> },
     { path: '/registro', element: <Register /> },
     {
-        element: <RequireAuth roles={['owner', 'reception', 'trainer']} />,
+        element: <PanelOrLanding />,
         children: [{
             element: <Layout />,
             children: [
