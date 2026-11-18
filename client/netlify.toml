@@ -1,0 +1,9 @@
+# Configuración de Netlify para el cliente (base directory: client)
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # La API en Render. No es secreta: el navegador la ve igual.
+  VITE_API_URL = "https://gym-saas-182q.onrender.com/api"
